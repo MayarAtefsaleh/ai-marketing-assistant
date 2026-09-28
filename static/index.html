@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Marketing Assistant</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            color: #1f2937;
+
+            background:
+                radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.18), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(59, 130, 246, 0.16), transparent 30%),
+                linear-gradient(135deg, #f8f7ff, #eef4ff);
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .page {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            padding: 50px 25px 70px;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo {
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            color: white;
+            font-size: 27px;
+            font-weight: bold;
+
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #4f46e5,
+                #2563eb
+            );
+
+            box-shadow:
+                0 12px 30px rgba(79, 70, 229, 0.28);
+        }
+
+        .header h1 {
+            margin: 0;
+
+            font-size: 38px;
+            line-height: 1.2;
+
+            letter-spacing: -1px;
+
+            color: #111827;
+        }
+
+        .header h1 span {
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #2563eb
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            margin: 13px 0 0;
+
+            color: #6b7280;
+
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           MAIN GRID
+        ========================= */
+
+        .main-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+
+            border: 1px solid rgba(255, 255, 255, 0.9);
+
+            border-radius: 24px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 20px 50px rgba(31, 41, 55, 0.08);
+
+            backdrop-filter: blur(12px);
+        }
+
+        .card-header {
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 20px;
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+        .card-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: #f0ebff;
+
+            color: #7c3aed;
+
+            font-size: 18px;
+        }
+
+        .card-description {
+            margin: 7px 0 0 48px;
+
+            color: #8a94a6;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #e2e5ec;
+
+            border-radius: 12px;
+
+            background: #fafbff;
+
+            color: #1f2937;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #a1a8b5;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            background: white;
+
+            border-color: #7c3aed;
+
+            box-shadow:
+                0 0 0 4px rgba(124, 58, 237, 0.10);
+        }
+
+        textarea {
+            min-height: 105px;
+
+            resize: vertical;
+        }
+
+
+        /* =========================
+           CONTENT TYPE
+        ========================= */
+
+        .content-type-box {
+            padding: 16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 16px;
+
+            background: linear-gradient(
+                135deg,
+                #f5f0ff,
+                #eef4ff
+            );
+
+            border: 1px solid #e4dcff;
+        }
+
+        .content-type-box label {
+            color: #5b21b6;
+        }
+
+        .content-type-box select {
+            background: white;
+
+            border-color: #d8cdfc;
+        }
+
+
+        /* =========================
+           TWO COLUMNS
+        ========================= */
+
+        .row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+        }
+
+
+        /* =========================
+           GENERATE BUTTON
+        ========================= */
+
+        .generate-button {
+            width: 100%;
+
+            margin-top: 5px;
+
+            padding: 15px 20px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #4f46e5,
+                #2563eb
+            );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 25px rgba(79, 70, 229, 0.25);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s,
+                opacity 0.2s;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 30px rgba(79, 70, 229, 0.32);
+        }
+
+        .generate-button:active {
+            transform: translateY(0);
+        }
+
+        .generate-button:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =========================
+           RESULT CARD
+        ========================= */
+
+        .result-card {
+            min-height: 500px;
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .result-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+        .result-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: #eef4ff;
+
+            color: #2563eb;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           RESULT AREA
+        ========================= */
+
+        .result {
+            flex: 1;
+
+            padding: 20px;
+
+            border-radius: 16px;
+
+            background: #f8f9fd;
+
+            border: 1px solid #e8eaf0;
+
+            white-space: pre-wrap;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+
+            color: #374151;
+
+            min-height: 390px;
+        }
+
+        .result-placeholder {
+            height: 100%;
+
+            min-height: 350px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: #9ca3af;
+        }
+
+        .placeholder-icon {
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 15px;
+
+            border-radius: 18px;
+
+            background: #eeeaff;
+
+            color: #7c3aed;
+
+            font-size: 25px;
+        }
+
+        .placeholder-title {
+            font-weight: 700;
+
+            color: #6b7280;
+
+            margin-bottom: 6px;
+        }
+
+        .placeholder-text {
+            font-size: 13px;
+
+            max-width: 250px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           RESULT ACTIONS
+        ========================= */
+
+        .variation-control {
+            margin-top: 8px;
+            padding: 14px;
+            border-radius: 14px;
+            background: #f8f7ff;
+            border: 1px solid #e7e1ff;
+        }
+
+        .variation-control label {
+            margin-bottom: 7px;
+            color: #5b21b6;
+        }
+
+        .variation-control select {
+            background: white;
+        }
+
+        .variations-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .variation-card {
+            background: white;
+            border: 1px solid #e4e6ef;
+            border-radius: 14px;
+            padding: 17px;
+        }
+
+        .variation-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .variation-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #5b21b6;
+        }
+
+        .variation-copy {
+            flex: 0 0 auto;
+            padding: 7px 11px;
+            border: 1px solid #dddff0;
+            border-radius: 9px;
+            background: #faf8ff;
+            color: #6d28d9;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .variation-copy:hover {
+            background: #f0ebff;
+        }
+
+        .variation-text {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .result-actions {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 15px;
+        }
+
+        .action-button {
+            flex: 1;
+
+            padding: 11px;
+
+            border-radius: 11px;
+
+            border: 1px solid #dddff0;
+
+            background: white;
+
+            color: #4b5563;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .action-button:hover {
+            border-color: #7c3aed;
+
+            color: #7c3aed;
+
+            background: #faf8ff;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #7c3aed;
+
+            font-weight: 600;
+        }
+
+        .loading-dots {
+            display: flex;
+
+            gap: 4px;
+        }
+
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #7c3aed;
+
+            animation: bounce 1.2s infinite;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes bounce {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+
+            30% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card {
+                min-height: auto;
+            }
+
+            .result {
+                min-height: 300px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 30px 15px 50px;
+            }
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .card {
+                padding: 20px;
+
+                border-radius: 20px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .result-actions {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+            ✦
+        </div>
+
+        <h1>
+            AI <span>Marketing Assistant</span>
+        </h1>
+
+        <p>
+            Create better marketing content for your courses in seconds.
+        </p>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main-grid">
+
+
+        <!-- =========================
+             LEFT CARD
+        ========================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div class="card-title">
+
+                    <div class="card-icon">
+                        ✦
+                    </div>
+
+                    Course Information
+
+                </div>
+
+                <div class="card-description">
+                    Tell us about your course and your marketing goal.
+                </div>
+
+            </div>
+
+
+            <!-- COURSE NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Course Name
+                </label>
+
+                <input
+                    id="course_name"
+                    type="text"
+                    placeholder="Example: Python for Beginners"
+                >
+
+            </div>
+
+
+            <!-- COURSE DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label>
+                    Course Description
+                </label>
+
+                <textarea
+                    id="course_description"
+                    placeholder="Describe your course briefly..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- CONTENT TYPE -->
+
+            <div class="content-type-box">
+
+                <label>
+                    ✦ What do you want to create?
+                </label>
+
+                <select id="content_type">
+
+                    <option value="Social Media Post">
+                        Social Media Post
+                    </option>
+
+                    <option value="Advertisement">
+                        Advertisement
+                    </option>
+
+                    <option value="WhatsApp Message">
+                        WhatsApp Message
+                    </option>
+
+                    <option value="Course Description">
+                        Course Description
+                    </option>
+
+                    <option value="Content Ideas">
+                        Content Ideas
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TARGET AUDIENCE -->
+
+            <div class="form-group">
+
+                <label>
+                    Target Audience
+                </label>
+
+                <input
+                    id="target_audience"
+                    type="text"
+                    placeholder="Example: University students and beginners"
+                >
+
+            </div>
+
+
+            <!-- PLATFORM + TONE -->
+
+            <div class="row">
+
+                <div class="form-group">
+
+                    <label>
+                        Platform
+                    </label>
+
+                    <select id="platform">
+
+                        <option value="Facebook">
+                            Facebook
+                        </option>
+
+                        <option value="Instagram">
+                            Instagram
+                        </option>
+
+                        <option value="LinkedIn">
+                            LinkedIn
+                        </option>
+
+                        <option value="TikTok">
+                            TikTok
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tone
+                    </label>
+
+                    <select id="tone">
+
+                        <option value="Friendly">
+                            Friendly
+                        </option>
+
+                        <option value="Professional">
+                            Professional
+                        </option>
+
+                        <option value="Casual">
+                            Casual
+                        </option>
+
+                        <option value="Persuasive">
+                            Persuasive
+                        </option>
+
+                        <option value="Educational">
+                            Educational
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- LANGUAGE + GOAL -->
+
+            <div class="row">
+
+                <div class="form-group">
+
+                    <label>
+                        Language
+                    </label>
+
+                    <select id="language">
+
+                        <option value="English">
+                            English
+                        </option>
+
+                        <option value="Arabic">
+                            Arabic
+                        </option>
+
+                        <option value="Egyptian Arabic">
+                            Egyptian Arabic
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Marketing Goal
+                    </label>
+
+                    <select id="goal">
+
+                        <option value="Get Registrations">
+                            Get Registrations
+                        </option>
+
+                        <option value="Increase Sales">
+                            Increase Sales
+                        </option>
+
+                        <option value="Build Awareness">
+                            Build Awareness
+                        </option>
+
+                        <option value="Get Engagement">
+                            Get Engagement
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- NUMBER OF VARIATIONS -->
+
+            <div class="variation-control">
+
+                <label>
+                    ✦ Number of Variations
+                </label>
+
+                <select id="variations">
+                    <option value="1">1 Variation</option>
+                    <option value="2">2 Variations</option>
+                    <option value="3" selected>3 Variations</option>
+                </select>
+
+            </div>
+
+
+            <!-- GENERATE -->
+
+            <button
+                class="generate-button"
+                id="generateButton"
+                onclick="generateContent()"
+            >
+                ✨ Generate Marketing Content
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             RIGHT CARD
+        ========================= -->
+
+        <div class="card result-card">
+
+            <div class="result-header">
+
+                <div class="result-title">
+
+                    <div class="result-icon">
+                        ✨
+                    </div>
+
+                    Generated Content
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div class="result" id="result">
+
+                <div class="result-placeholder">
+
+                    <div class="placeholder-icon">
+                        ✦
+                    </div>
+
+                    <div class="placeholder-title">
+                        Your content will appear here
+                    </div>
+
+                    <div class="placeholder-text">
+                        Fill in the course details and click
+                        Generate Marketing Content to get started.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="result-actions">
+
+                <button
+                    class="action-button"
+                    onclick="copyContent()"
+                >
+                    📋 Copy
+                </button>
+
+                <button
+                    class="action-button"
+                    onclick="regenerateContent()"
+                >
+                    ↻ Regenerate
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+    /* =========================
+       GENERATE CONTENT
+    ========================= */
+
+    async function generateContent() {
+
+        const button =
+            document.getElementById("generateButton");
+
+        const result =
+            document.getElementById("result");
+
+
+        const courseName =
+            document.getElementById("course_name").value.trim();
+
+        const courseDescription =
+            document.getElementById("course_description").value.trim();
+
+        const contentType =
+            document.getElementById("content_type").value;
+
+        const targetAudience =
+            document.getElementById("target_audience").value.trim();
+
+        const platform =
+            document.getElementById("platform").value;
+
+        const tone =
+            document.getElementById("tone").value;
+
+        const language =
+            document.getElementById("language").value;
+
+        const goal =
+            document.getElementById("goal").value;
+
+        const variations =
+            parseInt(document.getElementById("variations").value, 10);
+
+
+        /* =========================
+           VALIDATION
+        ========================= */
+
+        if (
+            !courseName ||
+            !courseDescription ||
+            !targetAudience
+        ) {
+
+            result.innerHTML = `
+                <div class="placeholder-title">
+                    Please fill in all required fields.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        button.disabled = true;
+
+        button.innerText = "Generating...";
+
+
+        result.innerHTML = `
+            <div class="loading">
+
+                Creating your marketing content
+
+                <div class="loading-dots">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+        `;
+
+
+        try {
+
+
+            const url =
+                `/generate?` +
+
+                `course_name=${encodeURIComponent(courseName)}` +
+
+                `&course_description=${encodeURIComponent(courseDescription)}` +
+
+                `&content_type=${encodeURIComponent(contentType)}` +
+
+                `&target_audience=${encodeURIComponent(targetAudience)}` +
+
+                `&platform=${encodeURIComponent(platform)}` +
+
+                `&tone=${encodeURIComponent(tone)}` +
+
+                `&language=${encodeURIComponent(language)}` +
+
+                `&goal=${encodeURIComponent(goal)}` +
+                `&variations=${variations}`;
+
+
+            const response =
+                await fetch(url);
+
+
+            const data =
+                await response.json();
+
+
+            if (data.error) {
+
+                result.innerText =
+                    "Error: " +
+                    JSON.stringify(data.error);
+
+                return;
+            }
+
+
+            displayVariations(data.response);
+
+
+        }
+
+        catch (error) {
+
+            result.innerText =
+                "Something went wrong. Please try again.";
+
+            console.error(error);
+
+        }
+
+
+        finally {
+
+            button.disabled = false;
+
+            button.innerText =
+                "✨ Generate Marketing Content";
+
+        }
+
+    }
+
+
+    /* =========================
+       DISPLAY VARIATIONS
+    ========================= */
+
+    function displayVariations(responseText) {
+
+        const result =
+            document.getElementById("result");
+
+        const parts = responseText
+            .split(/---\s*Variation\s+\d+\s*---/i)
+            .map(text => text.trim())
+            .filter(Boolean);
+
+        if (parts.length <= 1) {
+            result.innerText = responseText;
+            return;
+        }
+
+        result.innerHTML = `
+            <div class="variations-container">
+                ${parts.map((text, index) => `
+                    <div class="variation-card">
+                        <div class="variation-card-header">
+                            <div class="variation-number">
+                                Variation ${index + 1}
+                            </div>
+
+                            <button
+                                class="variation-copy"
+                                onclick="copyVariation(this)"
+                            >
+                                📋 Copy
+                            </button>
+                        </div>
+
+                        <div class="variation-text">${escapeHtml(text)}</div>
+                    </div>
+                `).join("")}
+            </div>
+        `;
+    }
+
+
+    function escapeHtml(text) {
+
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+
+    async function copyVariation(button) {
+
+        const card = button.closest(".variation-card");
+
+        const text =
+            card.querySelector(".variation-text").innerText.trim();
+
+        try {
+
+            await navigator.clipboard.writeText(text);
+
+            button.innerText = "✓ Copied";
+
+            setTimeout(() => {
+                button.innerText = "📋 Copy";
+            }, 1500);
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Could not copy the variation.");
+
+        }
+    }
+
+
+    /* =========================
+       COPY CONTENT
+    ========================= */
+
+
+    async function copyContent() {
+
+        const result =
+            document.getElementById("result");
+
+        const text =
+            result.innerText.trim();
+
+
+        if (
+            !text ||
+            text === "Your content will appear here"
+        ) {
+
+            return;
+        }
+
+
+        try {
+
+            await navigator.clipboard.writeText(text);
+
+            alert("Content copied successfully!");
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert("Could not copy the content.");
+
+        }
+
+    }
+
+
+    /* =========================
+       REGENERATE
+    ========================= */
+
+    function regenerateContent() {
+
+        generateContent();
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
